@@ -15,6 +15,18 @@ Boolean.  Default: false
 
 Whether or not to close the datepicker immediately when a date is selected.
 
+monthNameToNumber
+-----------------
+
+Boolean. Default: false
+
+Takes a month name and returns the corresponding month number if set to True. The conversion is used when the date format is 'mm' for the month part.
+
+The function works by filtering the short month names in the current language to find a match with the input month name. If a match is found, current month will be shown as a number.
+
+Example:
+
+If the current language is English and the input month name is "Jun", the function will return 6, since June is the 6th month of the year.
 
 assumeNearbyYear
 ----------------

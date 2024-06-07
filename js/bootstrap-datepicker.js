@@ -260,7 +260,7 @@
 					if (o.startDate instanceof Date)
 						o.startDate = this._local_to_utc(this._zero_time(o.startDate));
 					else
-						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.assumeNearbyYear);
+						o.startDate = DPGlobal.parseDate(o.startDate, format, o.language, o.assumeNearbyYear, o.monthNameToNumber);
 				}
 				else {
 					o.startDate = -Infinity;
@@ -271,7 +271,7 @@
 					if (o.endDate instanceof Date)
 						o.endDate = this._local_to_utc(this._zero_time(o.endDate));
 					else
-						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.assumeNearbyYear);
+						o.endDate = DPGlobal.parseDate(o.endDate, format, o.language, o.assumeNearbyYear, o.monthNameToNumber);
 				}
 				else {
 					o.endDate = Infinity;
@@ -286,7 +286,7 @@
 				o.datesDisabled = o.datesDisabled.split(',');
 			}
 			o.datesDisabled = $.map(o.datesDisabled, function(d){
-				return DPGlobal.parseDate(d, format, o.language, o.assumeNearbyYear);
+				return DPGlobal.parseDate(d, format, o.language, o.assumeNearbyYear, o.monthNameToNumber);
 			});
 
 			var plc = String(o.orientation).toLowerCase().split(/\s+/g),
@@ -321,7 +321,7 @@
 				o.orientation.y = _plc[0] || 'auto';
 			}
 			if (o.defaultViewDate instanceof Date || typeof o.defaultViewDate === 'string') {
-				o.defaultViewDate = DPGlobal.parseDate(o.defaultViewDate, format, o.language, o.assumeNearbyYear);
+				o.defaultViewDate = DPGlobal.parseDate(o.defaultViewDate, format, o.language, o.assumeNearbyYear, o.monthNameToNumber);
 			} else if (o.defaultViewDate) {
 				var year = o.defaultViewDate.year || new Date().getFullYear();
 				var month = o.defaultViewDate.month || 0;
@@ -788,7 +788,7 @@
 			}
 
 			dates = $.map(dates, $.proxy(function(date){
-				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.assumeNearbyYear);
+				return DPGlobal.parseDate(date, this.o.format, this.o.language, this.o.assumeNearbyYear, this.o.monthNameToNumber);
 			}, this));
 			dates = $.grep(dates, $.proxy(function(date){
 				return (
@@ -1735,7 +1735,8 @@
 			leftArrow: '&#x00AB;',
 			rightArrow: '&#x00BB;'
 		},
-    showWeekDays: true
+    showWeekDays: true,
+	monthNameToNumber: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
@@ -1802,7 +1803,7 @@
 			}
 			return {separators: separators, parts: parts};
 		},
-		parseDate: function(date, format, language, assumeNearby){
+		parseDate: function(date, format, language, assumeNearby, monthNameToNumber){
 			if (!date)
 				return undefined;
 			if (date instanceof Date)
@@ -1901,6 +1902,12 @@
 					val = parseInt(parts[i], 10);
 					part = fparts[i];
 					if (isNaN(val)){
+						if (part === 'mm' && monthNameToNumber) {
+							filtered = $(dates[language].monthsShort).filter(match_part);
+							if (filtered[0] !== undefined) {
+								val = $.inArray(filtered[0], dates[language].monthsShort) + 1;
+							}
+						}
 						switch (part){
 							case 'MM':
 								filtered = $(dates[language].months).filter(match_part);

@@ -350,3 +350,36 @@ test('Assume nearby year - this century (+ 13 years, threshold = 30)', patch_dat
         .datepicker('setValue');
     equal(this.input.val(), '02/14/2023');
 }));
+
+test('Convert month `February` to number `02`, monthNameToNumber === true', patch_date(function(Date){
+    Date.now = function(){
+        return UTCDate(2024, 6, 6).getTime();
+    };
+    this.input
+        .val('February/14/2023')
+        .datepicker({format: 'mm/dd/yyyy', monthNameToNumber: true})
+        .datepicker('setValue');
+    equal(this.input.val(), '02/14/2023');
+}));
+
+test('Convert month `Dec` to number `12`, monthNameToNumber === true', patch_date(function(Date){
+    Date.now = function(){
+        return UTCDate(2024, 6, 6).getTime();
+    };
+    this.input
+        .val('Dec/14/2023')
+        .datepicker({format: 'mm/dd/yyyy', monthNameToNumber: true})
+        .datepicker('setValue');
+    equal(this.input.val(), '12/14/2023');
+}));
+
+test('Non existing moth word could not be converted to number, defaults to current month monthNameToNumber === true', patch_date(function(Date){
+    Date.now = function(){
+        return UTCDate(2024, 6, 6).getTime();
+    };
+    this.input
+        .val('Nonsense/14/2023')
+        .datepicker({format: 'mm/dd/yyyy', monthNameToNumber: true})
+        .datepicker('setValue');
+    equal(this.input.val(), '07/14/2023');
+}));
