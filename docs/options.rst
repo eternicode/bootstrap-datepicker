@@ -15,6 +15,18 @@ Boolean.  Default: false
 
 Whether or not to close the datepicker immediately when a date is selected.
 
+monthNameToNumber
+-----------------
+
+Boolean. Default: false
+
+Takes a month name and returns the corresponding month number if set to True. The conversion is used when the date format is 'mm' for the month part.
+
+The function works by filtering the short month names in the current language to find a match with the input month name. If a match is found, current month will be shown as a number.
+
+Example:
+
+If the current language is English and the input month name is "Jun", the function will return 6, since June is the 6th month of the year.
 
 assumeNearbyYear
 ----------------
@@ -111,6 +123,25 @@ A function that takes a date as a parameter and returns one of the following val
    * ``classes``: same as the String value above
    * ``tooltip``: a tooltip to apply to this year, via the ``title`` HTML attribute
 
+
+afterInputChange
+----------------
+
+Function(inputChange, dateOld, dateNew). Default: $.noop
+
+A function that is called after the input value of the datepicker has changed. It takes three parameters:
+
+* inputChange: A string that indicates the part of the date that was changed. For example, 'yyyy', 'mm', 'dd'.
+* dateOld: The old date value before the change.
+* dateNew: The new date value after the change.
+
+This function can be used to perform custom operations after the datepicker's input has been changed. For example, you can use it to call a custom function:
+
+```javascript
+afterInputChange: function(inputChange, dateOld, dateNew){
+    customFunc(inputChange, dateOld, dateNew);
+}
+```
 
 calendarWeeks
 -------------
@@ -567,4 +598,5 @@ todayHighlight               false
 toggleActive                 false
 weekStart                    0 (Sunday)
 zIndexOffset                 10
+afterInputChange
 =====================        =============
