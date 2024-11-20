@@ -188,7 +188,7 @@ Features
  * Allow overriding `$.fn.show` and `$.fn.hide` (Fixes: #1424)
  * Adding border-radius variable for LESS (Fixes: #1429)
  * Add support for dropdown border variables
- * Add the posibility to have a title on the picker (Fixes: #1410)
+ * Add the possibility to have a title on the picker (Fixes: #1410)
  * Implement `beforeShowYear` (Fixes: #1226)
  * Add commonjs support
  * Trigger 'hide' event when clicking outside datepicker
@@ -200,12 +200,12 @@ Bugfixes:
  * Scrolling on mobile device closes datepicker
  * Use $.on() instead $.bind()
  * Fixed right-click and edit-menu paste
- * Ported prototype fix for Prototype Compability
+ * Ported prototype fix for Prototype Compatibility
  * Fixed issue with startview year
  * Fixed padding inconsistency with twitter bootstrap 3
  * prevents the click event from bubbling to any user defined click handlers
  * Added padding for .datepicker-dropdown
- * Fixes the issue with a date change firing mulitple change events
+ * Fixes the issue with a date change firing multiple change events
  * removed hard dependency on bootstrap (because of twbs-sass package)
  * Clearing the date should reset to defaultViewDate
  * Datepicker orientation mix up - top = bottom and bottom = top
@@ -280,7 +280,7 @@ Translations:
 Docs:
  * added example for inputs option
  * added missing documentation for embedded mode
- * Add additional documentaion to update method
+ * Add additional documentation to update method
 
 1.3.1
 -----
@@ -345,7 +345,7 @@ New features:
 * Bootstrap 3 support.  Added build files `build/build_standalone3.less` and `build/build3.less`, and source files `less/datepicker3.less` and `css/datepicker3.css` (built from `build_standalone3.less`).
 * Multi-date functionality.  This required rethinking several areas of the picker:
     * The internals have been modified to be completely multidate-centric.
-    * Attributes and methods availabel on events have changed, but the old attributes and functions will still work.
+    * Attributes and methods available on events have changed, but the old attributes and functions will still work.
     * Keyboard navigation has been revamped, as it didn't work at all properly with multidate selection.
     * The picker now explicitly supports "no selected date".
 
